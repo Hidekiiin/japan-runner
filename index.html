@@ -44,11 +44,25 @@
         </div>
     </div>
 
-    <!-- ゲームスクリプト -->
+<!-- ゲームスクリプト -->
     <script src="js/game.js"></script>
-    <script type="module" src="js/japanese-elements.js"></script>
+    <script src="js/japanese-elements.js"></script>
     <script src="js/placeholder-images.js"></script>
     <script src="js/game-integration.js"></script>
     <script src="js/ui-controls.js"></script>
+    <script src="js/test-optimize.js"></script>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // ゲームの初期化
+    try {
+      const game = new JapanRunnerWithUI();
+      console.log('ゲームが初期化されました');
+    } catch (error) {
+      console.error('初期化エラー:', error);
+      alert('ゲームの初期化中にエラーが発生しました: ' + error.message);
+    }
+  });
+</script>
+
 </body>
 </html>
