@@ -240,3 +240,34 @@ body {
 .bounce {
     animation: bounce 2s infinite;
 }
+// game.js
+
+class JapanRunnerWithUI {
+    constructor(character = 'samurai') {
+        this.character = character;
+        this.score = 0;
+        this.coins = 0;
+        this.distance = 0;
+        this.isGameOver = false;
+        console.log(`「${this.character}」キャラクターでゲーム開始！`);
+    }
+
+    startGame() {
+        console.log('ゲームスタート！');
+        this.score = 0;
+        this.coins = 0;
+        this.distance = 0;
+        this.isGameOver = false;
+    }
+
+    updateStats(score, coins, distance) {
+        this.score = score;
+        this.coins = coins;
+        this.distance = distance;
+    }
+
+    gameOver() {
+        this.isGameOver = true;
+        console.log('ゲームオーバー！');
+    }
+}
