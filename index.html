@@ -8,37 +8,18 @@
 </head>
 <body>
     <div class="game-container">
-        <!-- ゲーム開始画面 -->
         <div class="game-start-screen">
             <h1>ジャパンランナー</h1>
             <p>日本文化を駆け抜けるエンドレスランナーゲーム</p>
-            
-            <!-- キャラクター選択 -->
-            <div class="character-select">
-                <h2>キャラクターを選ぶ</h2>
-                <button class="character-btn" data-character="samurai">侍</button>
-                <button class="character-btn" data-character="ninja">忍者</button>
-                <button class="character-btn" data-character="geisha">芸者</button>
-            </div>
-
             <button id="start-button">ゲームスタート</button>
-
-            <!-- 操作方法 -->
             <div class="instructions">
                 <h2>操作方法</h2>
                 <p>← → : 左右移動</p>
                 <p>↑ : ジャンプ</p>
                 <p>↓ : スライディング</p>
             </div>
-
-            <!-- ミッション表示 -->
-            <div class="mission-section">
-                <h3>本日のミッション</h3>
-                <p id="mission-text">100m走破、コイン10枚集めよう！</p>
-            </div>
         </div>
-
-        <!-- ゲームプレイ画面 -->
+        
         <div class="game-play-screen">
             <canvas id="game-canvas"></canvas>
             <div class="game-stats">
@@ -46,14 +27,8 @@
                 <div class="coins">コイン: <span id="coins">0</span></div>
                 <div class="distance">距離: <span id="distance">0</span>m</div>
             </div>
-
-            <!-- ゲーム音声コントロール -->
-            <div class="audio-controls">
-                <button id="mute-button">🔊 ミュート</button>
-            </div>
         </div>
-
-        <!-- ゲームオーバー画面 -->
+        
         <div class="game-over-screen">
             <h2>ゲームオーバー</h2>
             <div class="final-score">最終スコア: <span id="final-score">0</span></div>
@@ -61,8 +36,7 @@
             <button id="restart-button">もう一度プレイ</button>
         </div>
     </div>
-
-    <!-- 読み込み画面 -->
+    
     <div class="loading-screen">
         <div class="loading-text">読み込み中...</div>
         <div class="progress-bar">
@@ -70,105 +44,11 @@
         </div>
     </div>
 
-    <!-- ゲーム音声 -->
-    <audio id="bgm" loop>
-        <source src="audio/japan-runner-bgm.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="jump-sound" src="audio/jump.mp3"></audio>
-    <audio id="coin-sound" src="audio/coin.mp3"></audio>
-    <audio id="gameover-sound" src="audio/gameover.mp3"></audio>
-
     <!-- ゲームスクリプト -->
     <script src="js/game.js"></script>
-    <script src="js/japanese-elements.js"></script>
+    <script type="module" src="js/japanese-elements.js"></script>
     <script src="js/placeholder-images.js"></script>
     <script src="js/game-integration.js"></script>
     <script src="js/ui-controls.js"></script>
-    <script src="js/test-optimize.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let game;
-            let selectedCharacter = 'samurai';
-
-            // キャラクター選択
-            document.querySelectorAll('.character-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    selectedCharacter = this.dataset.character;
-                    alert(`「${selectedCharacter}」を選択しました！`);
-                });
-            });
-
-            // ゲーム初期化
-            try {
-                game = new JapanRunnerWithUI(selectedCharacter);
-                console.log('ゲームが初期化されました');
-
-                // BGM再生開始
-                const bgm = document.getElementById('bgm');
-                bgm.volume = 0.5;
-                bgm.play();
-
-                // ミュートボタン
-                document.getElementById('mute-button').addEventListener('click', function() {
-                    if (bgm.muted) {
-                        bgm.muted = false;
-                        this.textContent = '🔊 ミュート';
-                    } else {
-                        bgm.muted = true;
-                        this.textContent = '🔇 ミュート解除';
-                    }
-                });
-
-            } catch (error) {
-                console.error('初期化エラー:', error);
-                alert('ゲームの初期化中にエラーが発生しました: ' + error.message);
-            }
-
-            // ゲームリセット
-            document.getElementById('restart-button').addEventListener('click', function() {
-                resetGame();
-                document.querySelector('.game-over-screen').style.display = 'none';
-                document.querySelector('.game-play-screen').style.display = 'block';
-            });
-
-            // ミッションのランダム化
-            function updateMission() {
-                const missions = [
-                    '100m走破、コイン10枚集めよう！',
-                    '200m走破して、スライディング3回成功！',
-                    'コイン15枚を集めてクリアしよう！'
-                ];
-                const randomMission = missions[Math.floor(Math.random() * missions.length)];
-                document.getElementById('mission-text').textContent = randomMission;
-            }
-            updateMission();
-        });
-
-        // ゲームリセット関数
-        function resetGame() {
-            document.getElementById('score').textContent = 0;
-            document.getElementById('coins').textContent = 0;
-            document.getElementById('distance').textContent = 0;
-            alert('ゲームを再起動しました！');
-        }
-    </script>
 </body>
 </html>
-document.addEventListener('DOMContentLoaded', function() {
-    try {
-        // 仮のクラスを定義してエラー回避
-        class JapanRunnerWithUI {
-            constructor(character) {
-                console.log(`${character} で仮のゲーム開始`);
-            }
-        }
-
-        const game = new JapanRunnerWithUI('samurai');
-        console.log('ゲームが仮に初期化されました');
-    } catch (error) {
-        console.error('初期化エラー:', error);
-        alert('ゲームの初期化中にエラーが発生しました: ' + error.message);
-    }
-});
-
